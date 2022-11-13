@@ -12,6 +12,11 @@ double f(double x)
 	return x - sqrt(x) + 1. / ((3. * x + 1.) * (3. * x + 1.));
 }
 
+double f2(pair<double, double> point)
+{
+	return point.second * point.second - 3 * point.second - sin(point.second) * log(sin(point.first) + 1);
+}
+
 double df(double x)
 {
 	return 1 - 1 / (2 * sqrt(x)) - 6 / pow((3 * x + 1), 3);
@@ -32,14 +37,14 @@ double phi_11(double x, double y)
 	return (3 + cos(y) * log(sin(x) + 1)) / 2.;
 }
 
-double phi_1_N(double x, double y)
+double phi_1_N(pair<double, double> point)
 {
-	return -sin(y) * cos(x) / (sin(x) + 1);
+	return -sin(point.second) * cos(point.first) / (sin(point.first) + 1);
 }
 
-double phi_2_N(double x, double y)
+double phi_2_N(pair<double, double> point)
 {
-	return 2 * y - 3 - cos(y) * log(sin(x) + 1);
+	return 2 * point.second - 3 - cos(point.second) * log(sin(point.first) + 1);
 }
 
 double phi_1_N_x(pair<double, double> point)
@@ -191,18 +196,18 @@ pair<double, double> Minimize(double a, double b, double delta)
 
 std::pair<double, double> Minimize_Newton(double a, double b, double delta)
 {
-	pair <double, double> point = { 1.4 , 1.6 };
-	double c[2] = { 1.4 , 1.6 }, c_prev[2];
-	double delta_k[2] = { -point.first, -point.second };
+	pair <double, double> point = { 1.5708 , 1.51822 };
+	double c[2] = { 1.5708 , 1.51822 }, c_prev[2];
+	double delta_k[2];
 	do
 	{
+		double f[2] = { -f2(point), -f2(point) };
+		double M[4] = { phi_1_N_x(point), phi_1_N_y(point), phi_2_N_x(point), phi_2_N_y(point) };
+		solve_gauss(2, M, f, delta_k);
 		copy(c, c + 2, c_prev);
 		c[0] = c_prev[0] + delta_k[0];
 		c[1] = c_prev[1] + delta_k[1];
 		point = { delta_k[0],delta_k[1] };
-		double f[2] = { -point.first, -point.second };
-		double M[4] = { phi_1_N_x(point), phi_1_N_y(point), phi_2_N_x(point), phi_2_N_y(point) };
-		solve_gauss(2, M, f, delta_k);
 
 	} while (abs(c[0] - c_prev[0]) > delta && abs(c[1] - c_prev[1]) > delta);
 	

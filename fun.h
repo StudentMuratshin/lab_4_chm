@@ -3,12 +3,13 @@
 #include <vector>
 
 double f(double x);
+double f2(std::pair<double,double> point);
 double df(double x);
 double phi_1(double x);
 double phi_2(double x);
 double phi_11(double x, double y);
-double phi_1_N(double x, double y);
-double phi_2_N(double x, double y);
+double phi_1_N(std::pair<double, double> point);
+double phi_2_N(std::pair<double, double> point);
 
 double phi_1_N_x(std::pair<double, double> point);
 double phi_2_N_x(std::pair<double, double> point);
