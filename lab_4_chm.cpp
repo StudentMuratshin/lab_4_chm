@@ -52,5 +52,8 @@ int main()
     pair<double,double> r = Minimize(a, b, delta);
     cout << "x = " << r.first << " y = " << r.second << endl;
 
-
+    cout << "______________Minimize Newton______________" << endl;
+    a = 0., b = 3;
+    r = Minimize_Newton(a, b, delta);
+    cout << "x = " << r.first << " y = " << r.second << endl;
 }
