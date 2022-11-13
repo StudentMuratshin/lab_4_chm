@@ -4,7 +4,7 @@
 #include "fun.h"
 using namespace std;
 
-
+constexpr auto M_PI = 3.14159265358979323846;
 
 double f(double x)
 {
@@ -24,6 +24,11 @@ double phi_2(double x)
 double phi_1(double x)
 {
 	return sqrt(x) - 1. / ((3. * x + 1.) * (3. * x + 1.));
+}
+
+double phi_11(double x, double y)
+{
+	return (3 + cos(y) * log(sin(x) + 1)) / 2.;
 }
 
 double Bisection_method(double a, double b, double delta, vector<double>& x)
@@ -140,4 +145,15 @@ void Secant_method(double a, double b, double delta, std::vector<double>& x, int
 		} while (abs(c - c_prev) > delta);
 		x.push_back(c);
 	}
+}
+
+pair<double, double> Minimize(double a, double b, double delta)
+{
+	double c = a, c_prev = b;
+	do
+	{
+		c_prev = c;
+		c = phi_11(M_PI / 2., c_prev);
+	} while (abs(c - c_prev) > delta);
+	return pair<double, double>(M_PI / 2., c);
 }

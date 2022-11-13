@@ -13,14 +13,14 @@ int main()
 
     cout << "______________Bisection method______________" << endl;
     Bisection_method(a, b, delta, x);
-    for (auto t : x) cout << t << " " << endl;
+    for (auto const t : x) cout << t << " " << endl;
     x.clear();
 
     cout << "______________Chord method______________" << endl;
     Chord(a, b, delta, x, "+");
     a = 0., b = 0.5;
     Chord(a, b, delta, x, "-");
-    for (auto t : x) cout << t << " " << endl;
+    for (auto const t : x) cout << t << " " << endl;
     x.clear();
 
     cout << "______________Fixed-point iteration______________" << endl;
@@ -28,7 +28,7 @@ int main()
     Fixed_point_iteration(a, b, delta, x, 1);
     a = 0., b = 0.5;
     Fixed_point_iteration(a, b, delta, x, 2);
-    for (auto t : x) cout << t << " " << endl;
+    for (auto const t : x) cout << t << " " << endl;
     x.clear();
 
     cout << "______________Newton method______________" << endl;
@@ -36,7 +36,7 @@ int main()
     Newton_method(a, b, delta, x, 1);
     a = 0., b = 0.5;
     Newton_method(a, b, delta, x, 2);
-    for (auto t : x) cout << t << " " << endl;
+    for (auto const t : x) cout << t << " " << endl;
     x.clear();
 
     cout << "______________Secant method______________" << endl;
@@ -44,6 +44,13 @@ int main()
     Secant_method(a, b, delta, x, 1);
     a = 0., b = 0.5;
     Secant_method(a, b, delta, x, 2);
-    for (auto t : x) cout << t << " " << endl;
+    for (auto const t : x) cout << t << " " << endl;
     x.clear();
+
+    cout << "______________Minimize______________" << endl;
+    a = 0., b = 3;
+    pair<double,double> r = Minimize(a, b, delta);
+    cout << "x = " << r.first << " y = " << r.second << endl;
+
+
 }
