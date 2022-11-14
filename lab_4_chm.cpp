@@ -53,7 +53,7 @@ int main()
     cout << "x = " << r.first << " y = " << r.second << endl;
 
     cout << "______________Minimize Newton______________" << endl;
-    a = 0., b = 3;
+    a = 1., b = 1;
     r = Minimize_Newton(a, b, delta);
     cout << "x = " << r.first << " y = " << r.second << endl;
 }

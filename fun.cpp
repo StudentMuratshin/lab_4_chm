@@ -196,20 +196,19 @@ pair<double, double> Minimize(double a, double b, double delta)
 
 std::pair<double, double> Minimize_Newton(double a, double b, double delta)
 {
-	pair <double, double> point = { 1.5708 , 1.51822 };
-	double c[2] = { 1.5708 , 1.51822 }, c_prev[2];
+	pair <double, double> point = { a , b };
+	double c[2] = { a , b };
 	double delta_k[2];
 	do
 	{
-		double f[2] = { -f2(point), -f2(point) };
+		double f[2] = { -phi_1_N(point), -phi_2_N(point) };
 		double M[4] = { phi_1_N_x(point), phi_1_N_y(point), phi_2_N_x(point), phi_2_N_y(point) };
 		solve_gauss(2, M, f, delta_k);
-		copy(c, c + 2, c_prev);
-		c[0] = c_prev[0] + delta_k[0];
-		c[1] = c_prev[1] + delta_k[1];
-		point = { delta_k[0],delta_k[1] };
+		c[0] += delta_k[0];
+		c[1] += delta_k[1];
+		point = { c[0],c[1] };
 
-	} while (abs(c[0] - c_prev[0]) > delta && abs(c[1] - c_prev[1]) > delta);
+	} while (max(abs(delta_k[0]), abs(delta_k[1])) > delta);
 	
 	return std::pair<double, double>(c[0], c[1]);
 }
